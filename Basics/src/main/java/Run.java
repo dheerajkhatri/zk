@@ -1,5 +1,5 @@
+import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.Op;
 
 import java.io.IOException;
 
@@ -16,8 +16,8 @@ public class Run {
 
         JoinGroup joinGroup = new JoinGroup();
         joinGroup.connect(args[0]);
-        joinGroup.join(args[1],args[2]);
-        joinGroup.join(args[1], args[3]);
+        joinGroup.join(args[1],args[2], CreateMode.EPHEMERAL);
+        joinGroup.join(args[1], args[3], CreateMode.EPHEMERAL);
 
         ListGroup listGroup = new ListGroup();
         listGroup.connect(args[0]);

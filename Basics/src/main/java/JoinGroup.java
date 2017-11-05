@@ -7,10 +7,11 @@ import org.apache.zookeeper.ZooDefs;
  */
 public class JoinGroup extends ConnectionWatcher {
 
-    public void join(String groupName, String memberName) throws InterruptedException {
+    public void join(String groupName, String memberName, CreateMode createMode) throws InterruptedException {
         String path = "/" + groupName + "/" + memberName;
+        CreateMode finalCreateMode = createMode == null ? CreateMode.EPHEMERAL : createMode;
         try {
-            String createdPath = zk.create(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+            String createdPath = zk.create(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, finalCreateMode);
             System.out.printf("Member %s joining group %s\n", createdPath, "/" + groupName);
         } catch (KeeperException ex) {
             System.out.println(ex.getMessage());
