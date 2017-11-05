@@ -23,8 +23,13 @@ public class Run {
         listGroup.connect(args[0]);
         listGroup.list(args[1]);
 
-        joinGroup.close();
+        DeleteGroup deleteGroup = new DeleteGroup();
+        deleteGroup.connect(args[0]);
+        deleteGroup.deleteGroup(args[1]);
         listGroup.list(args[1]);
+
+        joinGroup.close();
         listGroup.close();
+        deleteGroup.close();
     }
 }

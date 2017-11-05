@@ -11,7 +11,7 @@ public class JoinGroup extends ConnectionWatcher {
         String path = "/" + groupName + "/" + memberName;
         try {
             String createdPath = zk.create(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-            System.out.println("Created :" + createdPath);
+            System.out.printf("Member %s joining group %s\n", createdPath, "/" + groupName);
         } catch (KeeperException ex) {
             System.out.println(ex.getMessage());
             System.out.printf("Path %s already exists", path);
