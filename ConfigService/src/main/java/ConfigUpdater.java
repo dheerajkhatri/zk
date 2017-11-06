@@ -29,7 +29,18 @@ public class ConfigUpdater {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
-        ConfigUpdater configUpdater = new ConfigUpdater(args[0]);
-        configUpdater.run();
+
+        while (true) {
+            try {
+                ConfigUpdater resilientConfigUpdater = new ConfigUpdater(args[0]);
+                resilientConfigUpdater.run();
+            } catch (KeeperException.SessionExpiredException ex) {
+                //loop will make new connection
+            } catch (KeeperException ex) {
+                //already retried
+                ex.printStackTrace();
+                break;
+            }
+        }
     }
 }
